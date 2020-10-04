@@ -62,8 +62,20 @@
             this.btnClearSelectionEntities = new FontAwesome.Sharp.IconButton();
             this.btnSelectAllEntities = new FontAwesome.Sharp.IconButton();
             this.tblLayoutFiltersGrid = new System.Windows.Forms.TableLayoutPanel();
-            this.flowPanelGrid = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowPanelFilters = new System.Windows.Forms.FlowLayoutPanel();
+            this.tbGrid = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panelFields = new System.Windows.Forms.Panel();
+            this.cbxActiveRecords = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
+            this.cbxModifiedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.cbxCreatedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.tblLayoutMain.SuspendLayout();
             this.tblPanelMenu.SuspendLayout();
@@ -73,6 +85,8 @@
             this.tblPanelLanguagesSelection.SuspendLayout();
             this.tblPanelEntitiesSelection.SuspendLayout();
             this.tblLayoutFiltersGrid.SuspendLayout();
+            this.tbGrid.SuspendLayout();
+            this.panelFields.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -575,32 +589,163 @@
             // 
             this.tblLayoutFiltersGrid.ColumnCount = 1;
             this.tblLayoutFiltersGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblLayoutFiltersGrid.Controls.Add(this.flowPanelGrid, 0, 1);
-            this.tblLayoutFiltersGrid.Controls.Add(this.flowPanelFilters, 0, 0);
+            this.tblLayoutFiltersGrid.Controls.Add(this.tbGrid, 0, 1);
+            this.tblLayoutFiltersGrid.Controls.Add(this.panelFields, 0, 0);
             this.tblLayoutFiltersGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblLayoutFiltersGrid.Location = new System.Drawing.Point(581, 3);
             this.tblLayoutFiltersGrid.Name = "tblLayoutFiltersGrid";
             this.tblLayoutFiltersGrid.RowCount = 2;
-            this.tblLayoutFiltersGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tblLayoutFiltersGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tblLayoutFiltersGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblLayoutFiltersGrid.Size = new System.Drawing.Size(1108, 723);
             this.tblLayoutFiltersGrid.TabIndex = 1;
             // 
-            // flowPanelGrid
+            // tbGrid
             // 
-            this.flowPanelGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowPanelGrid.Location = new System.Drawing.Point(3, 203);
-            this.flowPanelGrid.Name = "flowPanelGrid";
-            this.flowPanelGrid.Size = new System.Drawing.Size(1102, 567);
-            this.flowPanelGrid.TabIndex = 0;
+            this.tbGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tbGrid.Controls.Add(this.tabPage1);
+            this.tbGrid.Controls.Add(this.tabPage2);
+            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbGrid.Location = new System.Drawing.Point(3, 183);
+            this.tbGrid.Name = "tbGrid";
+            this.tbGrid.SelectedIndex = 0;
+            this.tbGrid.Size = new System.Drawing.Size(1102, 537);
+            this.tbGrid.TabIndex = 2;
             // 
-            // flowPanelFilters
+            // tabPage1
             // 
-            this.flowPanelFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowPanelFilters.Location = new System.Drawing.Point(3, 3);
-            this.flowPanelFilters.Name = "flowPanelFilters";
-            this.flowPanelFilters.Size = new System.Drawing.Size(1102, 194);
-            this.flowPanelFilters.TabIndex = 1;
+            this.tabPage1.Location = new System.Drawing.Point(4, 40);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1094, 493);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 40);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1094, 473);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panelFields
+            // 
+            this.panelFields.Controls.Add(this.label5);
+            this.panelFields.Controls.Add(this.label4);
+            this.panelFields.Controls.Add(this.label3);
+            this.panelFields.Controls.Add(this.cbxActiveRecords);
+            this.panelFields.Controls.Add(this.cbxModifiedAfter);
+            this.panelFields.Controls.Add(this.dateTimePicker2);
+            this.panelFields.Controls.Add(this.comboBox1);
+            this.panelFields.Controls.Add(this.label2);
+            this.panelFields.Controls.Add(this.dateTimePicker1);
+            this.panelFields.Controls.Add(this.cbxCreatedAfter);
+            this.panelFields.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFields.Location = new System.Drawing.Point(3, 3);
+            this.panelFields.Name = "panelFields";
+            this.panelFields.Size = new System.Drawing.Size(1102, 174);
+            this.panelFields.TabIndex = 3;
+            // 
+            // cbxActiveRecords
+            // 
+            this.cbxActiveRecords.Checked = true;
+            this.cbxActiveRecords.Location = new System.Drawing.Point(438, 32);
+            this.cbxActiveRecords.Name = "cbxActiveRecords";
+            this.cbxActiveRecords.Size = new System.Drawing.Size(50, 45);
+            this.cbxActiveRecords.TabIndex = 8;
+            // 
+            // cbxModifiedAfter
+            // 
+            this.cbxModifiedAfter.Checked = false;
+            this.cbxModifiedAfter.Location = new System.Drawing.Point(26, 83);
+            this.cbxModifiedAfter.Name = "cbxModifiedAfter";
+            this.cbxModifiedAfter.Size = new System.Drawing.Size(34, 45);
+            this.cbxModifiedAfter.TabIndex = 9;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker2.Location = new System.Drawing.Point(238, 90);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(152, 30);
+            this.dateTimePicker2.TabIndex = 10;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox1.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(526, 89);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(262, 31);
+            this.comboBox1.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(442, 94);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 23);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Website";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(238, 39);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(152, 30);
+            this.dateTimePicker1.TabIndex = 6;
+            // 
+            // cbxCreatedAfter
+            // 
+            this.cbxCreatedAfter.Checked = false;
+            this.cbxCreatedAfter.Location = new System.Drawing.Point(26, 32);
+            this.cbxCreatedAfter.Name = "cbxCreatedAfter";
+            this.cbxCreatedAfter.Size = new System.Drawing.Size(34, 45);
+            this.cbxCreatedAfter.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(494, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 23);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Website";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(66, 43);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(109, 23);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Created After";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(66, 94);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(115, 23);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Modified After";
             // 
             // MetadataTranslatorControl
             // 
@@ -622,6 +767,9 @@
             this.tblPanelLanguagesSelection.ResumeLayout(false);
             this.tblPanelEntitiesSelection.ResumeLayout(false);
             this.tblLayoutFiltersGrid.ResumeLayout(false);
+            this.tbGrid.ResumeLayout(false);
+            this.panelFields.ResumeLayout(false);
+            this.panelFields.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -640,9 +788,6 @@
         private System.Windows.Forms.DateTimePicker dtpCreatedAfter;
         private System.Windows.Forms.TableLayoutPanel tblLayoutMain;
         private System.Windows.Forms.TableLayoutPanel tblLayoutEntitiesLanguages;
-        private System.Windows.Forms.TableLayoutPanel tblLayoutFiltersGrid;
-        private System.Windows.Forms.FlowLayoutPanel flowPanelGrid;
-        private System.Windows.Forms.FlowLayoutPanel flowPanelFilters;
         private System.Windows.Forms.TableLayoutPanel tblPanelMenu;
         private System.Windows.Forms.FlowLayoutPanel flowPanelMenu;
         private FontAwesome.Sharp.IconButton btnLoadEnvironment;
@@ -663,5 +808,20 @@
         private FontAwesome.Sharp.IconButton btnClearSelectionEntities;
         private FontAwesome.Sharp.IconButton btnSelectAllLanguages;
         private FontAwesome.Sharp.IconButton btnClearSelectionLanguages;
+        private System.Windows.Forms.TableLayoutPanel tblLayoutFiltersGrid;
+        private System.Windows.Forms.TabControl tbGrid;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel panelFields;
+        private Controls.CustomCheckBox cbxActiveRecords;
+        private Controls.CustomCheckBox cbxModifiedAfter;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private Controls.CustomCheckBox cbxCreatedAfter;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }

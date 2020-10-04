@@ -12,17 +12,10 @@ namespace Portals.MetadataTranslationManager.Controls
             InitializeComponent();
         }
 
-        public CustomCheckBox(string displayText)
-        {
-            InitializeComponent();
-            btnCheckBox.Text = displayText;
-        }
-
-        public CustomCheckBox(string displayText, bool checkedByDefault)
+        public CustomCheckBox(bool checkedByDefault)
         {
             InitializeComponent();
 
-            btnCheckBox.Text = displayText;
             Checked = checkedByDefault;
             if (Checked)
             {

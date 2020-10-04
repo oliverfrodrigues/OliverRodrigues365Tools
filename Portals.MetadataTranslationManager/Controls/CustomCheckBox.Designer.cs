@@ -45,9 +45,8 @@
             this.btnCheckBox.Name = "btnCheckBox";
             this.btnCheckBox.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.btnCheckBox.Rotation = 0D;
-            this.btnCheckBox.Size = new System.Drawing.Size(206, 45);
+            this.btnCheckBox.Size = new System.Drawing.Size(48, 45);
             this.btnCheckBox.TabIndex = 13;
-            this.btnCheckBox.Text = "Add your text here";
             this.btnCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCheckBox.UseVisualStyleBackColor = true;
             this.btnCheckBox.Click += new System.EventHandler(this.btnCheckBox_Click);
@@ -58,7 +57,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnCheckBox);
             this.Name = "CustomCheckBox";
-            this.Size = new System.Drawing.Size(206, 45);
+            this.Size = new System.Drawing.Size(48, 45);
             this.ResumeLayout(false);
 
         }
