@@ -8,12 +8,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 using System.Linq;
-//using System.Windows.Controls;
+using System.Windows.Controls;
 using Enums = Portals.MetadataTranslationManager.Model.Enums;
 using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Crm.Sdk.Messages;
-using System.Globalization;
-using Microsoft.Xrm.Sdk.Metadata.Query;
 
 namespace Portals.MetadataTranslationManager
 {
@@ -23,29 +20,7 @@ namespace Portals.MetadataTranslationManager
 
         private Settings mySettings;
         private List<EntityMetadata> _entityMetadataList = new List<EntityMetadata>();
-        public readonly List<ListViewItem> _languageItems = new List<ListViewItem>();
-        public readonly List<ListViewItem> _entityItems = new List<ListViewItem>();
-
-        public List<LanguageModel> _selectedLanguages
-        {
-            get
-            {
-                return lvLanguages.CheckedItems.Cast<ListViewItem>().ToList().Select(x => new LanguageModel
-                {
-                    WebsiteLanguage = new EntityReference("adx_websitelanguage", Guid.Parse(x.Tag.ToString())),
-                    LCID = int.Parse(x.Text.Substring(x.Text.Length - 4, 4)),
-                    LanguageName = x.Text.Substring(0, x.Text.IndexOf(" - "))
-                }).ToList();
-            }
-        }
-        public List<LanguageModel> _languageData { get; private set; }
-
-        public List<EntityMetadata> _entityMetadata { get; private set; }
-        public List<EntityMetadata> _selectedEntityMetadata
-        {
-            get { return lvEntities.CheckedItems.Cast<ListViewItem>().Select(x => x.Tag as EntityMetadata).ToList(); }
-        }
-
+        List<LanguageModel> _selectedLanguages;
         List<EntityMetadata> _selectedEntities;
         public DataGridHelper _dataGridModel { get; set; }
 
@@ -56,8 +31,8 @@ namespace Portals.MetadataTranslationManager
         {
             InitializeComponent();
 
-            //tbGrid.TabPages.Clear();
-            btnImportData.Visible = false;
+            tbGrid.TabPages.Clear();
+            
         }
 
         #endregion
@@ -103,76 +78,24 @@ namespace Portals.MetadataTranslationManager
             // organization if XrmToolBox is not yet connected
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void menuControl_ButtonCloseClicked(object sender, EventArgs e)
         {
             CloseTool();
-        }
-
-        private void btnImportData_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnLoadData_Click(object sender, EventArgs e)
-        {
-            //ExecuteMethod(LoadData);
-
-        }
-
-        private void btnLoadEnvironment_Click(object sender, EventArgs e)
+        private void menuControl_ButtonLoadEnvironmentClicked(object sender, EventArgs e)
         {
             ExecuteMethod(LoadEnvironmentSetup);
         }
 
-        private void btnSelectAllEntities_Click(object sender, EventArgs e)
+        private void menuControl_ButtonLoadDataClicked(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in lvEntities.Items)
-            {
-                item.Checked = true;
-            }
-        }
-
-        private void btnClearSelectionEntities_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item in lvEntities.Items)
-            {
-                item.Checked = false;
-            }
-        }
-
-        private void btnSelectAllLanguages_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item in lvLanguages.Items)
-            {
-                if (new Guid(item.Tag.ToString()) != (Guid.Empty))
-                    item.Checked = true;
-            }
-        }
-
-        private void btnClearSelectionLanguages_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item in lvLanguages.Items)
-            {
-                item.Checked = false;
-            }
-        }
-
-        private void lvLanguages_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            if (e.Item.Checked && new Guid(e.Item.Tag.ToString()) == (Guid.Empty))
-            {
-                MessageBox.Show("This language is available in your CDS/D365, but missing Website Language linked to your Portals");
-                e.Item.Checked = false;
-            }
+            ExecuteMethod(LoadData);
         }
 
         #endregion
-        
+
         private void LoadEnvironmentSetup()
         {
             WorkAsync(new WorkAsyncInfo
@@ -180,9 +103,11 @@ namespace Portals.MetadataTranslationManager
                 Message = "Loading environment configuration",
                 Work = (worker, args) =>
                 {
-                    LoadEntities();
+                    entityPicker.LoadEntities();
+                    _entityMetadataList = entityPicker._entityMetadata;
 
-                    LoadLanguages();
+                    languagePicker.LoadLanguages();
+
                     LoadWebsites();
 
                     //args.Result = Service.Execute(new RetrieveAvailableLanguagesRequest());
@@ -199,8 +124,8 @@ namespace Portals.MetadataTranslationManager
                     //{
                     //    MessageBox.Show($"Found {result.Entities.Count} languages");
                     //}
-                    PopulateEntitiesList();
-                    PopulateLanguageList();
+                    entityPicker.PopulateList();
+                    languagePicker.PopulateList();
                 }
             });
         }
@@ -241,8 +166,11 @@ namespace Portals.MetadataTranslationManager
                 mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
             }
+
+            entityPicker._orgService = newService;
+            languagePicker._orgService = newService;
         }
-        /*
+
         private void LoadData()
         {
             _selectedEntities = entityPicker._selectedEntityMetadata;
@@ -691,7 +619,7 @@ namespace Portals.MetadataTranslationManager
         }
 
         #endregion
-        */
+
         /*
          * 
          private void RetrieveEntityFormMetadataEntity()
@@ -1088,151 +1016,6 @@ namespace Portals.MetadataTranslationManager
                     );
         }
         */
-
-        public void LoadLanguages()
-        {
-            RetrieveAvailableLanguagesRequest request = new RetrieveAvailableLanguagesRequest();
-
-            RetrieveAvailableLanguagesResponse fullResponse = (RetrieveAvailableLanguagesResponse)Service.Execute(request);
-
-            List<int> LCIDs = fullResponse.LocaleIds.ToList();
-
-            _languageItems.Clear();
-
-            _languageData = new List<LanguageModel>();
-
-            foreach (int l in LCIDs)
-            {
-                CultureInfo cInfo = CultureInfo.GetCultureInfo(l);
-                EntityReference websiteLanguage = GetWebsiteLanguage(l);
-
-                _languageData.Add(new LanguageModel()
-                {
-                    LCID = l,
-                    LanguageName = cInfo.DisplayName,
-                    WebsiteLanguage = websiteLanguage
-                });
-
-                string displayName = string.Format("{0} - {1}", cInfo.DisplayName, l);
-                ListViewItem listItem = new ListViewItem(displayName);
-                listItem.Tag = websiteLanguage.Id;
-                listItem.Checked = true;
-                if (websiteLanguage.Id == Guid.Empty)
-                {
-                    listItem.Text += " - Unavailable";
-                    listItem.BackColor = System.Drawing.Color.DarkSlateGray;
-                    listItem.ToolTipText = "This language is available in your CDS/D365, but missing Website Language linked to your Portals";
-                    listItem.Checked = false;
-                    listItem.ForeColor = System.Drawing.Color.Orange;
-                }
-
-                _languageItems.Add(listItem);
-            }
-        }
-
-        public void LoadEntities()
-        {
-            string[] logicalNames = new string[] {
-                //"adx_contentsnippet",
-                "adx_entityform",
-                "adx_entityformmetadata",
-                "adx_entitylist",
-                "adx_webform",
-                "adx_webformmetadata",
-                "adx_webformstep",
-                //"adx_webpage",
-
-                // POLL
-                // WEB LINK
-                // SITE MARKER
-            };
-
-            EntityQueryExpression adxEntitiesQueryExpression = new EntityQueryExpression
-            {
-                Properties = new MetadataPropertiesExpression
-                {
-                    AllProperties = false,
-                    PropertyNames =
-                    {
-                        "DisplayName",
-                        "LogicalName",
-                        "SchemaName",
-                        "Attributes",
-                        "ObjectTypeCode"
-                    }
-                },
-                AttributeQuery = new AttributeQueryExpression
-                {
-                    Properties = new MetadataPropertiesExpression
-                    {
-                        AllProperties = false
-                        //,
-                        //PropertyNames = { "IsValidForCreate", "IsValidForUpdate", "LogicalName", "Targets", "OptionSet", "DisplayName" }
-                    }
-                },
-                Criteria = new MetadataFilterExpression
-                {
-                    Conditions =
-                    {
-                        new MetadataConditionExpression("LogicalName", MetadataConditionOperator.In, logicalNames.ToArray())
-                    }
-                }
-            };
-
-            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest
-            {
-                Query = adxEntitiesQueryExpression,
-                ClientVersionStamp = null
-            };
-
-            var fullResponse = (RetrieveMetadataChangesResponse)Service.Execute(request);
-
-            _entityMetadata = fullResponse.EntityMetadata.ToList();
-
-            _entityItems.Clear();
-
-            foreach (var metadata in _entityMetadata)
-            {
-                _entityItems.Add(new ListViewItem(metadata.DisplayName?.UserLocalizedLabel?.Label ?? metadata.SchemaName)
-                {
-                    Tag = metadata,
-                    Checked = true
-                });
-            }
-        }
-
-
-        private EntityReference GetWebsiteLanguage(int lcid)
-        {
-            QueryExpression qe = new QueryExpression("adx_websitelanguage");
-            qe.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
-            qe.TopCount = 1;
-
-            LinkEntity le = qe.AddLink("adx_portallanguage", "adx_portallanguageid", "adx_portallanguageid", JoinOperator.Inner);
-            le.LinkCriteria.AddCondition("statecode", ConditionOperator.Equal, 0);
-            le.LinkCriteria.AddCondition("adx_lcid", ConditionOperator.Equal, lcid);
-            le.EntityAlias = "pl";
-
-            EntityCollection ec = Service.RetrieveMultiple(qe);
-            Guid websiteLanguageGuid = Guid.Empty;
-
-            if (ec != null && ec.Entities.Count > 0)
-                websiteLanguageGuid = ec.Entities.FirstOrDefault().Id;
-
-            return new EntityReference("adx_websitelanguage", websiteLanguageGuid);
-        }
-
-        public void PopulateLanguageList()
-        {
-            lvLanguages.Items.Clear();
-            lvLanguages.Items.AddRange(_languageItems.ToArray());
-        }
-
-        public void PopulateEntitiesList()
-        {
-            lvEntities.Items.Clear();
-            lvEntities.Items.AddRange(_entityItems.ToArray());
-        }
     }
 
     [Obsolete("This class is obsolete")]

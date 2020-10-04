@@ -32,14 +32,14 @@ namespace Portals.MetadataTranslationManager.Controls
         public void LoadEntities()
         {
             string[] logicalNames = new string[] {
-                "adx_contentsnippet",
+                //"adx_contentsnippet",
                 "adx_entityform",
                 "adx_entityformmetadata",
                 "adx_entitylist",
                 "adx_webform",
                 "adx_webformmetadata",
                 "adx_webformstep",
-                "adx_webpage",
+                //"adx_webpage",
 
                 // POLL
                 // WEB LINK

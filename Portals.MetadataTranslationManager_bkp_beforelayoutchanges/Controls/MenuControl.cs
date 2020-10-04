@@ -15,10 +15,13 @@ namespace Portals.MetadataTranslationManager.Controls
         public event EventHandler ButtonCloseClicked;
         public event EventHandler ButtonLoadEnvironmentClicked;
         public event EventHandler ButtonLoadDataClicked;
+        public event EventHandler ButtonExportDataClicked;
+        public event EventHandler ButtonImportDataClicked;
 
         public MenuControl()
         {
             InitializeComponent();
+            btnImportData.Visible = false;
         }
 
         protected virtual void OnButtonCloseClick(EventArgs e) {
@@ -35,6 +38,16 @@ namespace Portals.MetadataTranslationManager.Controls
             ButtonLoadDataClicked?.Invoke(this, e);
         }
 
+        protected virtual void OnButtonExportData_Click(EventArgs e)
+        {
+            ButtonExportDataClicked?.Invoke(this, e);
+        }
+
+        protected virtual void OnButtonImportData_Click(EventArgs e)
+        {
+            ButtonImportDataClicked?.Invoke(this, e);
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             OnButtonCloseClick(EventArgs.Empty);
@@ -48,6 +61,16 @@ namespace Portals.MetadataTranslationManager.Controls
         private void btnLoadData_Click(object sender, EventArgs e)
         {
             OnButtonLoadData_Click(EventArgs.Empty);
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            OnButtonExportData_Click(EventArgs.Empty);
+        }
+
+        private void btnImportData_Click(object sender, EventArgs e)
+        {
+            OnButtonImportData_Click(EventArgs.Empty);
         }
     }
 }
