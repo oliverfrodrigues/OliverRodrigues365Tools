@@ -379,5 +379,34 @@ namespace Portals.MetadataTranslationManager.Model
 
             return attributes;
         }
+
+        public static List<AttributeHelperModel> GetAttributeListWebForm()
+        {
+            List<AttributeHelperModel> attributes = new List<AttributeHelperModel>();
+            attributes.Add(new AttributeHelperModel("adx_name", "Name", string.Empty));
+            attributes.Add(new AttributeHelperModel("adx_editexpiredmessage", "Edit Expired Message", string.Empty));
+            attributes.Add(new AttributeHelperModel("adx_editnotpermittedmessage", "Edit Not Permitted Message", string.Empty));
+            attributes.Add(new AttributeHelperModel("adx_savechangeswarningmessage", "Save Changes Warning Message", string.Empty));
+
+            return attributes;
+        }
+
+        public static List<AttributeHelperModel> GetAttrributeListWebFormStep()
+        {
+            List<AttributeHelperModel> attributes = new List<AttributeHelperModel>();
+            attributes.Add(new AttributeHelperModel("adx_name", "Name", string.Empty));
+
+            return attributes;
+            throw new NotImplementedException();
+        }
+
+        public static List<AttributeHelperModel> GetAttrributeListWebFormMetadata()
+        {
+            List<AttributeHelperModel> attributes = new List<AttributeHelperModel>();
+            attributes.Add(new AttributeHelperModel("adx_name", "Name", string.Empty));
+
+            return attributes;
+            throw new NotImplementedException();
+        }
     }
 }

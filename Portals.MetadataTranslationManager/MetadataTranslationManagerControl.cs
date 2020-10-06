@@ -43,8 +43,12 @@ namespace Portals.MetadataTranslationManager
         public List<EntityMetadata> _entityMetadata { get; private set; }
         public List<EntityMetadata> _selectedEntities
         {
+            get
+            {
+                return lvEntities.CheckedItems.Cast<ListViewItem>().ToList().Select(x => x.Tag as EntityMetadata).ToList();
+            }
 
-            get { return lvEntities.CheckedItems.Cast<ListViewItem>().Select(x => x.Tag as EntityMetadata).ToList(); }
+            //get { return (List<EntityMetadata>)Invoke(new Action(() => { lvEntities.CheckedItems.Cast<ListViewItem>().Select(x => x.Tag as EntityMetadata).ToList(); })); }
         }
 
         public DataGridHelper _dataGridModel { get; set; }
@@ -243,15 +247,17 @@ namespace Portals.MetadataTranslationManager
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
             }
         }
-        
+
         private void LoadData()
         {
-            if (_selectedEntities.Count == 0)
+            List<EntityMetadata> selectedEntities = _selectedEntities;
+            List<LanguageModel> selectedLanguages = _selectedLanguages;
+            if (selectedEntities.Count == 0)
             {
                 MessageBox.Show(this, "Please select at least one entity!", "No entities selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (_selectedLanguages.Count == 0)
+            if (selectedLanguages.Count == 0)
             {
                 MessageBox.Show(this, "Please select at least one language!", "No languages selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -266,7 +272,7 @@ namespace Portals.MetadataTranslationManager
             // clear tab control
             tbGrid.TabPages.Clear();
 
-            //_dataGridModel = new DataGridHelper();
+            _dataGridModel = new DataGridHelper();
 
             // clear grid
             WorkAsync(new WorkAsyncInfo
@@ -284,20 +290,23 @@ namespace Portals.MetadataTranslationManager
                     }
                     bw.ReportProgress(0, "Retrieving selected entities data");
 
-                    foreach (EntityMetadata e in _selectedEntities)
+                    foreach (EntityMetadata e in selectedEntities)
                     {
                         bw.ReportProgress(10, string.Format("Retrieving data for: {0}", e.LogicalName));
 
                         switch (e.LogicalName)
                         {
                             case "adx_entityform":
-                                GetEntityFormData();
+                                GetEntityFormData(selectedLanguages);
                                 break;
                             case "adx_entityformmetadata":
-                                GetEntityFormMetadataData();
+                                GetEntityFormMetadataData(selectedLanguages);
                                 break;
                             case "adx_entitylist":
-                                GetEntityListData();
+                                GetEntityListData(selectedLanguages);
+                                break;
+                            case "adx_webform":
+                                GetWebFormData(selectedLanguages);
                                 break;
                             default:
                                 break;
@@ -331,7 +340,7 @@ namespace Portals.MetadataTranslationManager
 
         #region Entity List
 
-        public void GetEntityListData()
+        public void GetEntityListData(List<LanguageModel> selectedLanguages)
         {
             _dataGridModel = new DataGridHelper();
             List<AttributeHelperModel> attributes = DataModel.GetAttributeListEntityList();
@@ -353,7 +362,7 @@ namespace Portals.MetadataTranslationManager
                 string[] settingsJsonAttributes = new string[] { "adx_settings", "adx_views" };
                 string[] ignoreAttributes = new string[] { "adx_name" };
                 dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
-                PopulateGrid(dataModel, grid, tbPage);
+                PopulateGrid(dataModel, grid, tbPage, selectedLanguages);
             }
         }
 
@@ -361,7 +370,7 @@ namespace Portals.MetadataTranslationManager
 
         #region Entity Form 
 
-        private void GetEntityFormData()
+        private void GetEntityFormData(List<LanguageModel> selectedLanguages)
         {
             _dataGridModel = new DataGridHelper();
             List<AttributeHelperModel> attributes = DataModel.GetAttributeListEntityForm();
@@ -383,14 +392,14 @@ namespace Portals.MetadataTranslationManager
                 string[] ignoreAttributes = new string[] { "adx_name" };
                 dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
                 //LogInfo(String.Format("{0} Records retrieved from adx_entityform entity", CRMDataList.Count));
-                PopulateGrid(dataModel, grid, tbPage);
+                PopulateGrid(dataModel, grid, tbPage, selectedLanguages);
             }
         }
 
         #endregion
 
         #region Entity Form Metadata 
-        private void GetEntityFormMetadataData()
+        private void GetEntityFormMetadataData(List<LanguageModel> selectedLanguages)
         {
             _dataGridModel = new DataGridHelper();
             List<AttributeHelperModel> attributes = DataModel.GetAttributeListEntityFormMetadata();
@@ -414,7 +423,7 @@ namespace Portals.MetadataTranslationManager
                 string[] settingsJsonAttributes = new string[] { "adx_subgrid_settings", "adx_notes_settings", "adx_timeline_settings" };
                 string[] ignoreAttributes = new string[] { "adx_name", "adx_type", "adx_attributelogicalname", "adx_entityform", "adx_subgrid_name", "adx_tabname" };
                 dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
-                PopulateGrid(dataModel, grid, tbPage);
+                PopulateGrid(dataModel, grid, tbPage, selectedLanguages);
             }
         }
 
@@ -422,6 +431,36 @@ namespace Portals.MetadataTranslationManager
 
         #region Web Form 
 
+        private void GetWebFormData(List<LanguageModel> selectedLanguages)
+        {
+            _dataGridModel = new DataGridHelper();
+            List<AttributeHelperModel> attributes = DataModel.GetAttributeListWebForm();
+
+            QueryExpression qe = new QueryExpression("adx_webform");
+            qe.ColumnSet = new ColumnSet(attributes.Select(x => x.AttributeLogicalName).Distinct().ToArray());
+            SetCommonFilters(ref qe, null);
+
+            EntityCollection ec = Service.RetrieveMultiple(qe);
+
+            if (ec != null)
+            {
+                int countRecord = ec.Entities.Count;
+                List<DataModel> dataModel = new List<DataModel>();
+
+                DataGridView grid;
+                TabPage tbPage = _dataGridModel.GenerateTab("Web Form", countRecord, out grid, this);
+                string[] settingsJsonAttributes = new string[] { };
+                string[] ignoreAttributes = new string[] { "adx_name" };
+                dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
+                //LogInfo(String.Format("{0} Records retrieved from adx_entityform entity", CRMDataList.Count));
+                PopulateGrid(dataModel, grid, tbPage, selectedLanguages);
+            }
+        }
+
+
+        #endregion
+
+        #region Web Form Step 
 
         #endregion
 
@@ -429,9 +468,7 @@ namespace Portals.MetadataTranslationManager
 
         #endregion
 
-        #region Web Form Step 
 
-        #endregion
 
         #region Web Page 
 
@@ -445,7 +482,7 @@ namespace Portals.MetadataTranslationManager
         /// <param name="dataModel"></param>
         /// <param name="grid"></param>
         /// <param name="tbPage"></param>
-        private void PopulateGrid(List<DataModel> dataModel, DataGridView grid, TabPage tbPage)
+        private void PopulateGrid(List<DataModel> dataModel, DataGridView grid, TabPage tbPage, List<LanguageModel> selectedLanguages)
         {
             grid.Columns.Clear();
             grid.Rows.Clear();
@@ -457,7 +494,7 @@ namespace Portals.MetadataTranslationManager
             grid.Columns.Add(_dataGridModel.JsonPathColumn);
             grid.Columns.Add(_dataGridModel.SettingsJsonColumn);
 
-            foreach (LanguageModel l in _selectedLanguages)
+            foreach (LanguageModel l in selectedLanguages)
             {
                 DataGridViewColumn languageColumn = new DataGridViewTextBoxColumn();
                 languageColumn.Name = l.WebsiteLanguage.Id.ToString();
@@ -477,11 +514,11 @@ namespace Portals.MetadataTranslationManager
                 foreach (CommonModel cm in efm.Values)
                 {
                     // only add data from JSON that the language has been selected
-                    if (_selectedLanguages.Select(x => x.LCID).Contains(cm.LCID))
+                    if (selectedLanguages.Select(x => x.LCID).Contains(cm.LCID))
                     {
                         grid.Rows[index].Cells[_dataGridModel.JsonPathColumn.Name].Value = cm.JsonPath;
                         grid.Rows[index].Cells[_dataGridModel.SettingsJsonColumn.Name].Value = cm.SettingsJson;
-                        grid.Rows[index].Cells[_selectedLanguages.Where(x => x.LCID.Equals(cm.LCID)).Select(x => x.WebsiteLanguage.Id).FirstOrDefault().ToString()].Value = cm.Value;
+                        grid.Rows[index].Cells[selectedLanguages.Where(x => x.LCID.Equals(cm.LCID)).Select(x => x.WebsiteLanguage.Id).FirstOrDefault().ToString()].Value = cm.Value;
                     }
                 }
             }

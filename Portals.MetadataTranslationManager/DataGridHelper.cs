@@ -55,10 +55,13 @@ namespace Portals.MetadataTranslationManager
         public TabPage GenerateTab(string displayName, int countRecord, out DataGridView grid, PluginControlBase control)
         {
             TabPage tbPage = new TabPage(string.Format("{0} ({1})", displayName, countRecord));
+            tbPage.AutoScroll = true;
             grid = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)(grid)).BeginInit();
             control.SuspendLayout();
             grid.Parent = tbPage;
+            grid.ScrollBars = ScrollBars.Horizontal;
+            
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grid.Dock = DockStyle.Fill;
             grid.RowHeadersVisible = false;

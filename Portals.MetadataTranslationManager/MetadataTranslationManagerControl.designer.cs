@@ -62,10 +62,10 @@
             this.btnClearSelectionEntities = new FontAwesome.Sharp.IconButton();
             this.btnSelectAllEntities = new FontAwesome.Sharp.IconButton();
             this.tblLayoutFiltersGrid = new System.Windows.Forms.TableLayoutPanel();
-            this.tbGrid = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panelFields = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.cbxActiveRecords = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
             this.cbxModifiedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -73,9 +73,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cbxCreatedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbGrid = new System.Windows.Forms.TabControl();
             this.toolStripMenu.SuspendLayout();
             this.tblLayoutMain.SuspendLayout();
             this.tblPanelMenu.SuspendLayout();
@@ -85,8 +85,8 @@
             this.tblPanelLanguagesSelection.SuspendLayout();
             this.tblPanelEntitiesSelection.SuspendLayout();
             this.tblLayoutFiltersGrid.SuspendLayout();
-            this.tbGrid.SuspendLayout();
             this.panelFields.SuspendLayout();
+            this.tbGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -600,41 +600,6 @@
             this.tblLayoutFiltersGrid.Size = new System.Drawing.Size(1108, 723);
             this.tblLayoutFiltersGrid.TabIndex = 1;
             // 
-            // tbGrid
-            // 
-            this.tbGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tbGrid.Controls.Add(this.tabPage1);
-            this.tbGrid.Controls.Add(this.tabPage2);
-            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGrid.Location = new System.Drawing.Point(3, 183);
-            this.tbGrid.Name = "tbGrid";
-            this.tbGrid.SelectedIndex = 0;
-            this.tbGrid.Size = new System.Drawing.Size(1102, 537);
-            this.tbGrid.TabIndex = 2;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 40);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1094, 493);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 40);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1094, 473);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // panelFields
             // 
             this.panelFields.Controls.Add(this.label5);
@@ -652,6 +617,36 @@
             this.panelFields.Name = "panelFields";
             this.panelFields.Size = new System.Drawing.Size(1102, 174);
             this.panelFields.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(66, 94);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(115, 23);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Modified After";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(66, 43);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(109, 23);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Created After";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(494, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 23);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Website";
             // 
             // cbxActiveRecords
             // 
@@ -717,35 +712,40 @@
             this.cbxCreatedAfter.Size = new System.Drawing.Size(34, 45);
             this.cbxCreatedAfter.TabIndex = 3;
             // 
-            // label3
+            // tabPage2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(494, 43);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 23);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Website";
+            this.tabPage2.Location = new System.Drawing.Point(4, 35);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1100, 504);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // tabPage1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(66, 43);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 23);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Created After";
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1100, 504);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // tbGrid
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(66, 94);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(115, 23);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Modified After";
+            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tbGrid.Controls.Add(this.tabPage1);
+            this.tbGrid.Controls.Add(this.tabPage2);
+            this.tbGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbGrid.Location = new System.Drawing.Point(0, 180);
+            this.tbGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.tbGrid.Name = "tbGrid";
+            this.tbGrid.SelectedIndex = 0;
+            this.tbGrid.Size = new System.Drawing.Size(1108, 543);
+            this.tbGrid.TabIndex = 4;
             // 
             // MetadataTranslatorControl
             // 
@@ -767,9 +767,9 @@
             this.tblPanelLanguagesSelection.ResumeLayout(false);
             this.tblPanelEntitiesSelection.ResumeLayout(false);
             this.tblLayoutFiltersGrid.ResumeLayout(false);
-            this.tbGrid.ResumeLayout(false);
             this.panelFields.ResumeLayout(false);
             this.panelFields.PerformLayout();
+            this.tbGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -809,9 +809,6 @@
         private FontAwesome.Sharp.IconButton btnSelectAllLanguages;
         private FontAwesome.Sharp.IconButton btnClearSelectionLanguages;
         private System.Windows.Forms.TableLayoutPanel tblLayoutFiltersGrid;
-        private System.Windows.Forms.TabControl tbGrid;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panelFields;
         private Controls.CustomCheckBox cbxActiveRecords;
         private Controls.CustomCheckBox cbxModifiedAfter;
@@ -823,5 +820,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabControl tbGrid;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
