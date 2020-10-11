@@ -36,7 +36,6 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.lblWebSite = new System.Windows.Forms.Label();
-            this.ddlWebsite = new System.Windows.Forms.ComboBox();
             this.dtpModifiedAfter = new System.Windows.Forms.DateTimePicker();
             this.dtpCreatedAfter = new System.Windows.Forms.DateTimePicker();
             this.tblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
@@ -62,6 +61,9 @@
             this.btnClearSelectionEntities = new FontAwesome.Sharp.IconButton();
             this.btnSelectAllEntities = new FontAwesome.Sharp.IconButton();
             this.tblLayoutFiltersGrid = new System.Windows.Forms.TableLayoutPanel();
+            this.tbGrid = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panelFields = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -69,13 +71,10 @@
             this.cbxActiveRecords = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
             this.cbxModifiedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ddlWebsite = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cbxCreatedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tbGrid = new System.Windows.Forms.TabControl();
             this.toolStripMenu.SuspendLayout();
             this.tblLayoutMain.SuspendLayout();
             this.tblPanelMenu.SuspendLayout();
@@ -85,8 +84,8 @@
             this.tblPanelLanguagesSelection.SuspendLayout();
             this.tblPanelEntitiesSelection.SuspendLayout();
             this.tblLayoutFiltersGrid.SuspendLayout();
-            this.panelFields.SuspendLayout();
             this.tbGrid.SuspendLayout();
+            this.panelFields.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -154,17 +153,6 @@
             this.lblWebSite.Size = new System.Drawing.Size(78, 28);
             this.lblWebSite.TabIndex = 6;
             this.lblWebSite.Text = "Website";
-            // 
-            // ddlWebsite
-            // 
-            this.ddlWebsite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlWebsite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ddlWebsite.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ddlWebsite.FormattingEnabled = true;
-            this.ddlWebsite.Location = new System.Drawing.Point(565, 78);
-            this.ddlWebsite.Name = "ddlWebsite";
-            this.ddlWebsite.Size = new System.Drawing.Size(262, 36);
-            this.ddlWebsite.TabIndex = 7;
             // 
             // dtpModifiedAfter
             // 
@@ -600,6 +588,41 @@
             this.tblLayoutFiltersGrid.Size = new System.Drawing.Size(1108, 723);
             this.tblLayoutFiltersGrid.TabIndex = 1;
             // 
+            // tbGrid
+            // 
+            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tbGrid.Controls.Add(this.tabPage1);
+            this.tbGrid.Controls.Add(this.tabPage2);
+            this.tbGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbGrid.Location = new System.Drawing.Point(0, 180);
+            this.tbGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.tbGrid.Name = "tbGrid";
+            this.tbGrid.SelectedIndex = 0;
+            this.tbGrid.Size = new System.Drawing.Size(1108, 543);
+            this.tbGrid.TabIndex = 4;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1100, 504);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 35);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1100, 504);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // panelFields
             // 
             this.panelFields.Controls.Add(this.label5);
@@ -608,7 +631,7 @@
             this.panelFields.Controls.Add(this.cbxActiveRecords);
             this.panelFields.Controls.Add(this.cbxModifiedAfter);
             this.panelFields.Controls.Add(this.dateTimePicker2);
-            this.panelFields.Controls.Add(this.comboBox1);
+            this.panelFields.Controls.Add(this.ddlWebsite);
             this.panelFields.Controls.Add(this.label2);
             this.panelFields.Controls.Add(this.dateTimePicker1);
             this.panelFields.Controls.Add(this.cbxCreatedAfter);
@@ -644,9 +667,9 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(494, 43);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 23);
+            this.label3.Size = new System.Drawing.Size(156, 23);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Website";
+            this.label3.Text = "Active Records Only";
             // 
             // cbxActiveRecords
             // 
@@ -673,16 +696,16 @@
             this.dateTimePicker2.Size = new System.Drawing.Size(152, 30);
             this.dateTimePicker2.TabIndex = 10;
             // 
-            // comboBox1
+            // ddlWebsite
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(526, 89);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(262, 31);
-            this.comboBox1.TabIndex = 12;
+            this.ddlWebsite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlWebsite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ddlWebsite.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ddlWebsite.FormattingEnabled = true;
+            this.ddlWebsite.Location = new System.Drawing.Point(526, 89);
+            this.ddlWebsite.Name = "ddlWebsite";
+            this.ddlWebsite.Size = new System.Drawing.Size(262, 31);
+            this.ddlWebsite.TabIndex = 12;
             // 
             // label2
             // 
@@ -712,41 +735,6 @@
             this.cbxCreatedAfter.Size = new System.Drawing.Size(34, 45);
             this.cbxCreatedAfter.TabIndex = 3;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 35);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1100, 504);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Location = new System.Drawing.Point(4, 35);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1100, 504);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tbGrid
-            // 
-            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tbGrid.Controls.Add(this.tabPage1);
-            this.tbGrid.Controls.Add(this.tabPage2);
-            this.tbGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGrid.Location = new System.Drawing.Point(0, 180);
-            this.tbGrid.Margin = new System.Windows.Forms.Padding(0);
-            this.tbGrid.Name = "tbGrid";
-            this.tbGrid.SelectedIndex = 0;
-            this.tbGrid.Size = new System.Drawing.Size(1108, 543);
-            this.tbGrid.TabIndex = 4;
-            // 
             // MetadataTranslatorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -767,9 +755,9 @@
             this.tblPanelLanguagesSelection.ResumeLayout(false);
             this.tblPanelEntitiesSelection.ResumeLayout(false);
             this.tblLayoutFiltersGrid.ResumeLayout(false);
+            this.tbGrid.ResumeLayout(false);
             this.panelFields.ResumeLayout(false);
             this.panelFields.PerformLayout();
-            this.tbGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -783,7 +771,6 @@
         private System.Windows.Forms.ToolStripButton tsbClose;
         private System.Windows.Forms.ToolStripButton tsbLoadEnvironment;
         private System.Windows.Forms.Label lblWebSite;
-        private System.Windows.Forms.ComboBox ddlWebsite;
         private System.Windows.Forms.DateTimePicker dtpModifiedAfter;
         private System.Windows.Forms.DateTimePicker dtpCreatedAfter;
         private System.Windows.Forms.TableLayoutPanel tblLayoutMain;
@@ -813,7 +800,7 @@
         private Controls.CustomCheckBox cbxActiveRecords;
         private Controls.CustomCheckBox cbxModifiedAfter;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ddlWebsite;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private Controls.CustomCheckBox cbxCreatedAfter;

@@ -308,6 +308,12 @@ namespace Portals.MetadataTranslationManager
                             case "adx_webform":
                                 GetWebFormData(selectedLanguages);
                                 break;
+                            case "adx_webformstep":
+                                GetWebFormStepData(selectedLanguages);
+                                break;
+                            case "adx_webformmetadata":
+                                GetWebFormMetadataData(selectedLanguages);
+                                break;
                             default:
                                 break;
                         }
@@ -334,6 +340,7 @@ namespace Portals.MetadataTranslationManager
             });
         }
 
+        
         #region Content Snippet 
 
         #endregion
@@ -462,13 +469,67 @@ namespace Portals.MetadataTranslationManager
 
         #region Web Form Step 
 
+        private void GetWebFormStepData(List<LanguageModel> selectedLanguages)
+        {
+            _dataGridModel = new DataGridHelper();
+            List<AttributeHelperModel> attributes = DataModel.GetAttributeListWebFormStep();
+
+            QueryExpression qe = new QueryExpression("adx_webformstep");
+            qe.ColumnSet = new ColumnSet(attributes.Select(x => x.AttributeLogicalName).Distinct().ToArray());
+            LinkEntity le = new LinkEntity("adx_webformstep", "adx_webform", "adx_webform", "adx_webformid", JoinOperator.Inner);
+            SetCommonFilters(ref qe, le);
+            qe.LinkEntities.Add(le);
+
+            EntityCollection ec = Service.RetrieveMultiple(qe);
+
+            if (ec != null)
+            {
+                int countRecord = ec.Entities.Count;
+                List<DataModel> dataModel = new List<DataModel>();
+
+                DataGridView grid;
+                TabPage tbPage = _dataGridModel.GenerateTab("Web Form Step", countRecord, out grid, this);
+                string[] settingsJsonAttributes = new string[] { "adx_settings" };
+                string[] ignoreAttributes = new string[] { "adx_name" };
+                dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
+                //LogInfo(String.Format("{0} Records retrieved from adx_entityform entity", CRMDataList.Count));
+                PopulateGrid(dataModel, grid, tbPage, selectedLanguages);
+            }
+        }
+
         #endregion
 
         #region Web Form Metadata 
+        private void GetWebFormMetadataData(List<LanguageModel> selectedLanguages)
+        {
+            _dataGridModel = new DataGridHelper();
+            List<AttributeHelperModel> attributes = DataModel.GetAttributeListWebFormMetadata();
+
+            QueryExpression qe = new QueryExpression("adx_webformmetadata");
+            qe.ColumnSet = new ColumnSet(attributes.Select(x => x.AttributeLogicalName).Distinct().ToArray());
+            LinkEntity le = new LinkEntity("adx_webformmetadata", "adx_webformstep", "adx_webformstep", "adx_webformstepid", JoinOperator.Inner);
+            LinkEntity le2 = new LinkEntity("adx_webformstep", "adx_webform", "adx_webform", "adx_webformid", JoinOperator.Inner);
+            SetCommonFilters(ref qe, le2);
+            qe.LinkEntities.Add(le);
+
+            EntityCollection ec = Service.RetrieveMultiple(qe);
+
+            if (ec != null)
+            {
+                int countRecord = ec.Entities.Count;
+                List<DataModel> dataModel = new List<DataModel>();
+
+                DataGridView grid;
+                TabPage tbPage = _dataGridModel.GenerateTab("Web Form Metadata", countRecord, out grid, this);
+
+                string[] settingsJsonAttributes = new string[] { "adx_subgrid_settings", "adx_notes_settings", "adx_timeline_settings" };
+                string[] ignoreAttributes = new string[] { "adx_type", "adx_attributelogicalname", "adx_webform", "adx_subgrid_name", "adx_tabname", "adx_webformstep", "adx_sectionname" };
+                dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
+                PopulateGrid(dataModel, grid, tbPage, selectedLanguages);
+            }
+        }
 
         #endregion
-
-
 
         #region Web Page 
 
@@ -620,6 +681,7 @@ namespace Portals.MetadataTranslationManager
                 case "adx_entityform":
                 case "adx_webform":
                 case "adx_entitylist":
+                case "adx_webformstep":
                     return entity.GetAttributeValue<string>("adx_name");
                 case "adx_entityformmetadata":
                     return GetEntityFormMetadataRecordName(entity);
@@ -679,6 +741,12 @@ namespace Portals.MetadataTranslationManager
             return Service.Retrieve(entityForm.LogicalName, entityForm.Id, new ColumnSet(columnSet));
         }
 
+        private Entity GetWebFormAdditionalData(EntityReference webForm)
+        {
+            string[] columnSet = new string[] { "adx_targetentitylogicalname", "adx_formname", "adx_tabname" };
+            return Service.Retrieve(webForm.LogicalName, webForm.Id, new ColumnSet(columnSet));
+        }
+
         private string GetAttributeDisplayNameByLogicalName(string entity, string attributeLogicalName)
         {
             RetrieveAttributeRequest attributeRequest = new RetrieveAttributeRequest();
@@ -700,18 +768,46 @@ namespace Portals.MetadataTranslationManager
         {
             string recordName = string.Empty;
             OptionSetValue type = entity.GetAttributeValue<OptionSetValue>("adx_type");
-            EntityReference webForm = entity.GetAttributeValue<EntityReference>("adx_webformid");
-            if (type != null && webForm != null)
+            EntityReference webFormstep = entity.GetAttributeValue<EntityReference>("adx_webformstep");
+            if (type != null && webFormstep != null)
             {
-                //switch ((Enums.WebFormMetadata_Type)type)
-                //{
-                //    case    type.
-                //    default:
-                //        break;
-                //}
                 Enums.WebFormMetadata_Type typeEnum = (Enums.WebFormMetadata_Type)type.Value;
-                string webFormName = webForm.Name;
-                recordName = string.Format("{0} - {1}", webFormName, type.ToString());
+                string entityFormName = webFormstep.Name;
+                string objectName = string.Empty;
+
+                switch (typeEnum)
+                {
+                    case Enums.WebFormMetadata_Type.Attribute:
+                        {
+                            Entity webFormAdditionalData = GetWebFormAdditionalData(webFormstep);
+                            objectName = GetAttributeDisplayNameByLogicalName(webFormAdditionalData.GetAttributeValue<string>("adx_targetentitylogicalname"), entity.GetAttributeValue<string>("adx_attributelogicalname"));
+                            recordName = string.Format("{0} - {1} - {2}", entityFormName, typeEnum.ToString(), objectName);
+                            break;
+                        }
+                    case Enums.WebFormMetadata_Type.Section:
+                        objectName = entity.GetAttributeValue<string>("adx_sectionname");
+                        recordName = string.Format("{0} - {1} - {2}", entityFormName, typeEnum.ToString(), objectName);
+                        break;
+                    case Enums.WebFormMetadata_Type.Tab:
+                        objectName = entity.GetAttributeValue<string>("adx_tabname");
+                        recordName = string.Format("{0} - {1} - {2}", entityFormName, typeEnum.ToString(), objectName);
+                        break;
+                    case Enums.WebFormMetadata_Type.Subgrid:
+                        objectName = entity.GetAttributeValue<string>("adx_subgrid_name");
+                        recordName = string.Format("{0} - {1} - {2}", entityFormName, typeEnum.ToString(), objectName);
+                        break;
+                    case Enums.WebFormMetadata_Type.Notes:
+                        recordName = string.Format("{0} - {1}", entityFormName, typeEnum.ToString());
+                        break;
+                    case Enums.WebFormMetadata_Type.Timeline:
+                        recordName = string.Format("{0} - {1} - {2}", entityFormName, typeEnum.ToString(), "Timeline");
+                        break;
+                    //case Enums.WebFormMetadata_Type.Purchase:
+                    //    recordName = string.Format("{0} - {1} - {2}", entityFormName, typeEnum.ToString(), "Timeline");
+                    //    break;
+                    default:
+                        break;
+                }
             }
             return recordName;
         }
