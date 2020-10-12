@@ -56,15 +56,12 @@ namespace Portals.MetadataTranslationManager
         {
             TabPage tbPage = new TabPage(string.Format("{0} ({1})", displayName, countRecord));
             tbPage.AutoScroll = true;
+            //tbPage.AutoScrollMinSize = new System.Drawing.Size(1000, 1000);
             grid = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)(grid)).BeginInit();
             control.SuspendLayout();
             grid.Parent = tbPage;
-            grid.ScrollBars = ScrollBars.Horizontal;
-
-            grid.AutoSize = true;
-            //grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.
+            grid.ScrollBars = ScrollBars.Both;
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grid.Dock = DockStyle.Fill;
             grid.RowHeadersVisible = false;
@@ -80,6 +77,5 @@ namespace Portals.MetadataTranslationManager
 
             return tbPage;
         }
-
     }
 }

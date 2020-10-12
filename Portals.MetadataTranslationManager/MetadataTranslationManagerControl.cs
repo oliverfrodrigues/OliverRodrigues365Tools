@@ -364,7 +364,7 @@ namespace Portals.MetadataTranslationManager
 
                 DataGridView grid;
                 TabPage tbPage = _dataGridModel.GenerateTab("Entity List", countRecord, out grid, this);
-
+                
                 string[] settingsJsonAttributes = new string[] { "adx_settings", "adx_views" };
                 string[] ignoreAttributes = new string[] { "adx_name" };
                 dataModel = GenerateData(attributes, ec, settingsJsonAttributes, ignoreAttributes);
@@ -582,7 +582,6 @@ namespace Portals.MetadataTranslationManager
                     }
                 }
             }
-
             Invoke(new Action(() => { tbGrid.TabPages.Add(tbPage); }));
         }
 

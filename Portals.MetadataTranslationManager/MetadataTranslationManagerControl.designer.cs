@@ -61,9 +61,6 @@
             this.btnClearSelectionEntities = new FontAwesome.Sharp.IconButton();
             this.btnSelectAllEntities = new FontAwesome.Sharp.IconButton();
             this.tblLayoutFiltersGrid = new System.Windows.Forms.TableLayoutPanel();
-            this.tbGrid = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panelFields = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -75,6 +72,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cbxCreatedAfter = new Portals.MetadataTranslationManager.Controls.CustomCheckBox();
+            this.panelTabPages = new System.Windows.Forms.Panel();
+            this.tbGrid = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.toolStripMenu.SuspendLayout();
             this.tblLayoutMain.SuspendLayout();
             this.tblPanelMenu.SuspendLayout();
@@ -84,8 +85,9 @@
             this.tblPanelLanguagesSelection.SuspendLayout();
             this.tblPanelEntitiesSelection.SuspendLayout();
             this.tblLayoutFiltersGrid.SuspendLayout();
-            this.tbGrid.SuspendLayout();
             this.panelFields.SuspendLayout();
+            this.panelTabPages.SuspendLayout();
+            this.tbGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -577,8 +579,8 @@
             // 
             this.tblLayoutFiltersGrid.ColumnCount = 1;
             this.tblLayoutFiltersGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblLayoutFiltersGrid.Controls.Add(this.tbGrid, 0, 1);
             this.tblLayoutFiltersGrid.Controls.Add(this.panelFields, 0, 0);
+            this.tblLayoutFiltersGrid.Controls.Add(this.panelTabPages, 0, 1);
             this.tblLayoutFiltersGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblLayoutFiltersGrid.Location = new System.Drawing.Point(581, 3);
             this.tblLayoutFiltersGrid.Name = "tblLayoutFiltersGrid";
@@ -587,41 +589,6 @@
             this.tblLayoutFiltersGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblLayoutFiltersGrid.Size = new System.Drawing.Size(1108, 723);
             this.tblLayoutFiltersGrid.TabIndex = 1;
-            // 
-            // tbGrid
-            // 
-            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tbGrid.Controls.Add(this.tabPage1);
-            this.tbGrid.Controls.Add(this.tabPage2);
-            this.tbGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGrid.Location = new System.Drawing.Point(0, 180);
-            this.tbGrid.Margin = new System.Windows.Forms.Padding(0);
-            this.tbGrid.Name = "tbGrid";
-            this.tbGrid.SelectedIndex = 0;
-            this.tbGrid.Size = new System.Drawing.Size(1108, 543);
-            this.tbGrid.TabIndex = 4;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Location = new System.Drawing.Point(4, 35);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1100, 504);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 35);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1100, 504);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panelFields
             // 
@@ -735,6 +702,51 @@
             this.cbxCreatedAfter.Size = new System.Drawing.Size(34, 45);
             this.cbxCreatedAfter.TabIndex = 3;
             // 
+            // panelTabPages
+            // 
+            this.panelTabPages.AutoScroll = true;
+            this.panelTabPages.Controls.Add(this.tbGrid);
+            this.panelTabPages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTabPages.Location = new System.Drawing.Point(3, 183);
+            this.panelTabPages.Name = "panelTabPages";
+            this.panelTabPages.Size = new System.Drawing.Size(1102, 537);
+            this.panelTabPages.TabIndex = 4;
+            // 
+            // tbGrid
+            // 
+            this.tbGrid.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tbGrid.Controls.Add(this.tabPage1);
+            this.tbGrid.Controls.Add(this.tabPage2);
+            this.tbGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbGrid.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbGrid.Location = new System.Drawing.Point(0, 0);
+            this.tbGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.tbGrid.Name = "tbGrid";
+            this.tbGrid.SelectedIndex = 0;
+            this.tbGrid.Size = new System.Drawing.Size(1102, 537);
+            this.tbGrid.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1094, 498);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 35);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1100, 504);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // MetadataTranslatorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -755,9 +767,10 @@
             this.tblPanelLanguagesSelection.ResumeLayout(false);
             this.tblPanelEntitiesSelection.ResumeLayout(false);
             this.tblLayoutFiltersGrid.ResumeLayout(false);
-            this.tbGrid.ResumeLayout(false);
             this.panelFields.ResumeLayout(false);
             this.panelFields.PerformLayout();
+            this.panelTabPages.ResumeLayout(false);
+            this.tbGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -807,6 +820,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panelTabPages;
         private System.Windows.Forms.TabControl tbGrid;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
