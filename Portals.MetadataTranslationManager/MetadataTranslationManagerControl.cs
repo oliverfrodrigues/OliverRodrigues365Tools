@@ -119,7 +119,7 @@ namespace Portals.MetadataTranslationManager
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-
+            ExportData();
         }
 
         private void btnLoadData_Click(object sender, EventArgs e)
@@ -340,7 +340,7 @@ namespace Portals.MetadataTranslationManager
             });
         }
 
-        
+
         #region Content Snippet 
 
         #endregion
@@ -954,6 +954,84 @@ namespace Portals.MetadataTranslationManager
         {
             lvEntities.Items.Clear();
             lvEntities.Items.AddRange(_entityItems.ToArray());
+        }
+
+        private void ExportData()
+        {
+            if (tbGrid.TabPages.Count == 0)
+            {
+                MessageBox.Show(this, "Please make sure you have data loaded before exporting it!", "No data loaded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.ShowDialog();
+            saveDialog.Filter = "Excel |*.xlsx";
+            if (!string.IsNullOrEmpty(saveDialog.FileName))
+            {
+
+                WorkAsync(new WorkAsyncInfo
+                {
+                    Message = "Exporting data",
+                    Work = (worker, args) =>
+                    {
+                        Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+                        Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+
+                        int tabPagesIndex = 0;
+                        foreach (TabPage tp in tbGrid.TabPages)
+                        {
+                            foreach (Control control in tp.Controls)
+                            {
+                                if (control is DataGridView)
+                                {
+                                    DataGridView dgv = (DataGridView)control;
+
+                                    Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+                                    if (tabPagesIndex > 0)
+                                    {
+                                        int count = workbook.Worksheets.Count;
+                                        worksheet = workbook.Worksheets.Add(Type.Missing, workbook.Worksheets[count], Type.Missing, Type.Missing);
+                                    }
+                                    tabPagesIndex++;
+
+                                    app.Visible = false;
+                                    worksheet = workbook.Sheets["Sheet" + tabPagesIndex];
+                                    worksheet = workbook.ActiveSheet;
+                                    worksheet.Name = tp.Text;
+
+                                    for (int i = 1; i < dgv.Columns.Count + 1; i++)
+                                    {
+                                        worksheet.Cells[1, i] = dgv.Columns[i - 1].HeaderText;
+                                    }
+                                    for (int i = 0; i < dgv.Rows.Count - 1; i++)
+                                    {
+                                        for (int j = 0; j < dgv.Columns.Count; j++)
+                                        {
+                                            worksheet.Cells[i + 2, j + 1] = (dgv.Rows[i].Cells[j].Value != null ? dgv.Rows[i].Cells[j].Value.ToString() : "");
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        // save the application  
+                        workbook.SaveAs(saveDialog.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                        // Exit from the application  
+                        app.Quit();
+
+                    },
+                    PostWorkCallBack = (args) =>
+                    {
+                        System.Diagnostics.Process.Start(saveDialog.FileName);
+                    }
+                });
+
+            }
+
+
+
         }
 
         #endregion
