@@ -61,7 +61,10 @@ namespace Portals.MetadataTranslationManager
             control.SuspendLayout();
             grid.Parent = tbPage;
             grid.ScrollBars = ScrollBars.Horizontal;
-            
+
+            grid.AutoSize = true;
+            //grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grid.Dock = DockStyle.Fill;
             grid.RowHeadersVisible = false;

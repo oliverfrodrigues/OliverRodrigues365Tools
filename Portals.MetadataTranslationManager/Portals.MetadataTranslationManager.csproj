@@ -146,7 +146,6 @@
     <Compile Include="Controls\CustomCheckBox.Designer.cs">
       <DependentUpon>CustomCheckBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="JsonHelper.cs" />
     <Compile Include="MetadataTranslationManager.cs" />
     <Compile Include="MetadataTranslationManagerControl.cs">
       <SubType>UserControl</SubType>
