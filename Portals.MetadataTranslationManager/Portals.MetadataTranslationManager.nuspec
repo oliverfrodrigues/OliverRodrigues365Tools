@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Portals.MetadataTranslationManager</id>
-    <version>1.0.0.0</version>
+    <version>1.0.1.0</version>
     <title>Portal Metadata Translation Manager</title>
     <authors>Oliver Rodrigues</authors>
     <owners></owners>
@@ -16,6 +16,6 @@
   </metadata>
   <files>
     <file src="..\Images\OR365Tools_32x32.png"/>
-    <file src="bin\Release\Plugins\Portals.MetadataTranslationManager.dll" target="lib\net462\Plugins"
+    <file src="bin\Release\Plugins\Portals.MetadataTranslationManager.dll" target="lib\net462\Plugins"/>
   </files>
 </package>

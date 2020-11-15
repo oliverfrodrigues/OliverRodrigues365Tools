@@ -221,6 +221,8 @@
     <Content Include="Images\OR365Tools_32x32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Portals.MetadataTranslationManager.1.0.0.nupkg" />
+    <None Include="Portals.MetadataTranslationManager.nuspec" />
     <None Include="Resources\tsbClose.Image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
