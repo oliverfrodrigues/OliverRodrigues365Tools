@@ -1022,7 +1022,16 @@ namespace Portals.MetadataTranslationManager
                     },
                     PostWorkCallBack = (args) =>
                     {
-                        System.Diagnostics.Process.Start(saveDialog.FileName);
+                        try
+                        {
+                            System.Diagnostics.Process.Start(saveDialog.FileName);
+                        }
+                        catch (Exception)
+                        {
+
+                            //throw;
+                        }
+                        
                     }
                 });
             }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Portals.MetadataTranslationManager</id>
+    <version>1.0.0.0</version>
+    <title>Portal Metadata Translation Manager</title>
+    <authors>Oliver Rodrigues</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <icon>OR365Tools_32x32.png</icon>
+    <projectUrl>https://github.com/oliverfrodrigues/OliverRodrigues365Tools</projectUrl>
+    <description>This plugin helps you to manage Power Apps Portals Metadata Translations</description>
+    <summary>This plugin helps you to manage Power Apps Portals Metadata Translations</summary>
+    <releaseNotes>Initial (beta) version of Portal Metadata Translation Manager</releaseNotes>
+    <tags>XrmToolBox PowerAppsPortals</tags>
+  </metadata>
+  <files>
+    <file src="..\Images\OR365Tools_32x32.png"/>
+    <file src="bin\Release\Plugins\Portals.MetadataTranslationManager.dll" target="lib\net462\Plugins"
+  </files>
+</package>
